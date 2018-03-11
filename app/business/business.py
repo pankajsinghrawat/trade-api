@@ -61,8 +61,11 @@ def runTrade():
             print("Sell BTC  -->", amround, avolumne, sellTotal)
 
             sellparams = {'market': 'btcusd', 'side': 'sell', 'volume': avolumne, 'price': amround}
-            rsell = sellsession.post(get_api_path('orders'), sellparams)
-
+            try:
+                rsell = sellsession.post(get_api_path('orders'), sellparams)
+            except Exception as exp:
+                print("json parsing error")
+                
             status_code = 200
             print("Order Sell Page")
             if status_code == 200:
@@ -80,7 +83,10 @@ def runTrade():
             print("buy  -->", bmround, bvolumne, buyTotal)
 
             buyparams = {'market': 'btcusd', 'side': 'buy', 'volume': bvolumne, 'price': bmround}
-            rbuy = buysession.post(get_api_path('orders'), buyparams)
+            try:
+                rbuy = buysession.post(get_api_path('orders'), buyparams)
+            except Exception as exp:
+                print("json parsing error")
 
             print("Order Buy Page")
             if status_code == 200:
